@@ -8,6 +8,11 @@ def get_data(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'lxml')
     table_of_contents = soup.find("div", id="toc")
+
+    if table_of_contents is None:
+        print(f"Warning: No table of contents found for {url}")
+        return []
+
     headings = table_of_contents.find_all("li")
     data = []
     for heading in headings:
